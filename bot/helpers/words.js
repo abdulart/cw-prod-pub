@@ -7,7 +7,7 @@ import User from '../database/models/User.js'
 export const sendWord = async (ctx, word) => {
     try {
         const title = `HSK-${word['ed_level']}: ${word['ieroglif']}`
-        await ctx.replyWithAudio(Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/1.mp3`), {
+        await ctx.replyWithAudio(Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/${word['word_id']}.mp3`), {
             parse_mode: 'Markdown',
             caption: `
 *${word['ieroglif']}*
@@ -27,7 +27,7 @@ export const sendWord = async (ctx, word) => {
 export const botSendWord = async (bot, user_id, word) => {
     const title = `HSK-${word['ed_level']}: ${word['ieroglif']}`
     try {
-        await bot.telegram.sendAudio(user_id, Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/1.mp3`), {
+        await bot.telegram.sendAudio(user_id, Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/${word['word_id']}.mp3`), {
             parse_mode: 'Markdown',
             caption: `
     *${word['ieroglif']}*

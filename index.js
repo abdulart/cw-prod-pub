@@ -16,6 +16,7 @@ async function main() {
         await Word.insertMany(HSK_4_JSON)
         await Word.insertMany(HSK_5_JSON)
         await Word.insertMany(HSK_6_JSON)
+        console.log('initial data inserted!!!')
     }
 
     await bot.launch()

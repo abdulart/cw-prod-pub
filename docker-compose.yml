@@ -1,0 +1,32 @@
+services:
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: bot:latest
+    container_name: chinese-bot
+    restart: always
+    env_file:
+      - .env
+#    ports:
+#      - ${WEBHOOK_PORT}:${WEBHOOK_PORT}
+    networks:
+      - app
+    depends_on:
+      - mongo
+    volumes:
+      - ./word_sounds:/usr/src/app/word_sounds
+
+  mongo:
+    image: mongo
+    container_name: chinese-words-mongo
+    networks:
+      - app
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: abdulart
+#      MONGO_INITDB_ROOT_PASSWORD: renata1488
+
+networks:
+  app:
+    name: app

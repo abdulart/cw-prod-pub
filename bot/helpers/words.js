@@ -82,7 +82,7 @@ export const botSendRandomTaskWord = async (bot, wordTask) => {
         await wordTask.save();
         return { success: true, userId };
     } catch(err) {
-        return { success: false, userId, err };
+        return { success: false, err };
     }
 
 }

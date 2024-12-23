@@ -72,8 +72,12 @@ export const botSendRandomWord = async (bot, userId) => {
 export const botSendRandomTaskWord = async (bot, wordTask) => {
     try {
         const userId = wordTask.u_id;
-        const random_user_word = await getRandomUsersWord(userId)
-        await botSendWord(bot, userId, random_user_word)
+        const currentUser = await User.findOne({u_id: userId})
+        if (currentUser && currentUser.settings.receiving_messages) {
+            const random_user_word = await getRandomUsersWord(userId)
+            await botSendWord(bot, userId, random_user_word)
+        }
+
         wordTask.sent = true;
         await wordTask.save();
         return { success: true, userId };

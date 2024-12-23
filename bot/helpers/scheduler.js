@@ -43,10 +43,13 @@ export const scheduleAll = async (bot) => {
             const users = await User.find({});
             let insertList = [];
             users.forEach(user => {
-                const userHoursObject = TIME_INTERVALS[user.settings.time_interval];
-                const userSendTimes = calculateSendTimesForUser(userHoursObject['from'], userHoursObject['to'], user?.settings?.word_per_day, user['u_id']);
-                console.log(userSendTimes)
-                insertList = insertList.concat(userSendTimes);
+                if (user.settings.receiving_messages) {
+                    const userHoursObject = TIME_INTERVALS[user.settings.time_interval];
+                    const userSendTimes = calculateSendTimesForUser(userHoursObject['from'], userHoursObject['to'], user?.settings?.word_per_day, user['u_id']);
+                    // console.log(userSendTimes)
+                    insertList = insertList.concat(userSendTimes);
+                }
+
             })
 
             // await WordTask.insertMany(insertList);

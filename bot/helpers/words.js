@@ -5,18 +5,23 @@ import User from '../database/models/User.js'
 
 
 export const sendWord = async (ctx, word) => {
-    const title = `HSK-${word['ed_level']}: ${word['ieroglif']}`
-    await ctx.replyWithAudio(Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/1.mp3`), {
-        parse_mode: 'Markdown',
-        caption: `
+    try {
+        const title = `HSK-${word['ed_level']}: ${word['ieroglif']}`
+        await ctx.replyWithAudio(Input.fromLocalFile(`${path.dirname(process.argv[1])}/word_sounds/1.mp3`), {
+            parse_mode: 'Markdown',
+            caption: `
 *${word['ieroglif']}*
             ▫️Пиньинь: ${word['transcription']}
             ▫️Перевод: ${word['translation']}
 
             🔹Уровень: HSK-${word['ed_level']}
         `,
-        title: title
-    })
+            title: title
+        })
+    } catch(err) {
+        console.log(err)
+    }
+
 }
 
 export const botSendWord = async (bot, user_id, word) => {
@@ -41,9 +46,14 @@ export const botSendWord = async (bot, user_id, word) => {
 
 
 export const sendRandomWord = async (ctx) => {
-    const random_word_apt = await Word.aggregate([{ $sample: { size: 1 } }]);
-    const random_word = random_word_apt[0]
-    await sendWord(ctx, random_word)
+    try {
+        const random_word_apt = await Word.aggregate([{ $sample: { size: 1 } }]);
+        const random_word = random_word_apt[0]
+        await sendWord(ctx, random_word)
+    } catch(err) {
+        console.log(err)
+    }
+
 }
 
 
@@ -80,6 +90,7 @@ export const getRandomUsersWord = async(user_id) => {
         if (!user) {
             throw new Error(`User with id ${user_id} not found!`)
         }
+        // console.log(user)
 
         const randomWord = await Word.aggregate([
             { 

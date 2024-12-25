@@ -52,7 +52,7 @@ export const scheduleAll = async (bot) => {
 
             })
 
-            // await WordTask.insertMany(insertList);
+            await WordTask.insertMany(insertList);
         } catch(err) {
             console.log(err)
         }
@@ -115,7 +115,7 @@ export const scheduleAll = async (bot) => {
     }
 
 
-    cron.schedule('0 2 * * *', async () => {
+    cron.schedule('0 3 * * *', async () => {
         await scheduleDailySends()
     })
 

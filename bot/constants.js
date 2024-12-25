@@ -19,4 +19,15 @@ export const START_TEXT_FOLLOW = `
 Нажмите /settings
 `
 
+export const HELP_REPLY = `
+Этот бот присылает слова на китайском языке с транслитом, переводом и произношением.
+
+    Настройки: /settings
+Поддержка: /supports (@abdulart)
+`
+
+export const SUPPORTS_REPLY = `
+Контакты поддержки: @abdulart
+`
+
 export const TIME_INTERVALS = [{from: 9, to: 21}, {from: 10, to: 18}, {from: 13, to: 15}, {from: 18, to: 20}, {from: 21, to: 23}]

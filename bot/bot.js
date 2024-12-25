@@ -13,7 +13,7 @@ bot.use(session())
 /** user via all commands */
 bot.use(userAuth)
 /**commands + inline callbacks */
-setupCommands(bot)
+await setupCommands(bot)
 setupCallbacks(bot)
 await scheduleAll(bot)
 // scheduleSomething(bot)

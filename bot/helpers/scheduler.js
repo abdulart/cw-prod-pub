@@ -108,10 +108,16 @@ export const scheduleAll = async (bot) => {
 
 
     const sendScheduledWords = async () => {
-        const now = new Date();
-        const scheduledWordTasks = await WordTask.find({sent: false, date: {$lt: now}})
-        const failedWords = await processTasks(scheduledWordTasks)
-        if (failedWords.length) console.log(failedWords)
+        try {
+            const now = new Date();
+            const scheduledWordTasks = await WordTask.find({sent: false, date: {$lt: now}})
+            console.log(scheduledWordTasks)
+            const failedWords = await processTasks(scheduledWordTasks)
+            if (failedWords.length) console.log(failedWords)
+        } catch(err) {
+            console.log(err)
+        }
+
     }
 
 

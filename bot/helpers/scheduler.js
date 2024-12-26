@@ -110,10 +110,10 @@ export const scheduleAll = async (bot) => {
     const sendScheduledWords = async () => {
         try {
             const now = new Date();
-            const scheduledWordTasks = await WordTask.find({sent: false, date: {$lt: now}})
+            const scheduledWordTasks = await WordTask.find({sent: false, date: {$gt: now}})
             console.log(scheduledWordTasks)
-            const failedWords = await processTasks(scheduledWordTasks)
-            if (failedWords.length) console.log(failedWords)
+            //const failedWords = await processTasks(scheduledWordTasks)
+            //if (failedWords.length) console.log(failedWords)
         } catch(err) {
             console.log(err)
         }
@@ -125,7 +125,7 @@ export const scheduleAll = async (bot) => {
         await scheduleDailySends()
     })
 
-    cron.schedule('0,10,20,30,40,50 * * * *', async () => {
+    cron.schedule('0-59 * * * *', async () => {
         await sendScheduledWords()
     })
 

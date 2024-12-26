@@ -110,6 +110,7 @@ export const scheduleAll = async (bot) => {
     const sendScheduledWords = async () => {
         try {
             const now = new Date();
+            now.setHours(now.getHours() + 3);
             const scheduledWordTasks = await WordTask.find({sent: false, date: {$lt: now}})
             console.log(now, scheduledWordTasks)
             //const failedWords = await processTasks(scheduledWordTasks)

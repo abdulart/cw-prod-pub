@@ -7,16 +7,17 @@ export const setupCallbacks = (bot) => {
      * Выключить - включить уведы
      */
     bot.action("toggle_words", async ctx => {
-        const user_id = ctx.session.bot_user.u_id
-        let user_settings = ctx.session.bot_user.settings
-        // console.log(getSettingsKeyboard(user_settings))
-        user_settings['receiving_messages'] = !user_settings['receiving_messages']
-        await User.updateOne({u_id: user_id}, 
-            { $set: { "settings.receiving_messages": user_settings['receiving_messages'] } }
-        )
-        const buttons = getSettingsKeyboard(user_settings)
-        // console.log(getSettingsKeyboard(user_settings))
         try {
+            const user_id = ctx.session.bot_user.u_id
+            let user_settings = ctx.session.bot_user.settings
+            // console.log(getSettingsKeyboard(user_settings))
+            user_settings['receiving_messages'] = !user_settings['receiving_messages']
+            await User.updateOne({u_id: user_id},
+                { $set: { "settings.receiving_messages": user_settings['receiving_messages'] } }
+            )
+            const buttons = getSettingsKeyboard(user_settings)
+            // console.log(getSettingsKeyboard(user_settings))
+
             await ctx.editMessageText('Настройки: ', {
                 reply_markup: {
                     inline_keyboard: buttons
